@@ -11,9 +11,11 @@ This software is licensed under the CC-GNU LGPL <http://creativecommons.org/lice
 				if (number)
 					numbers[number] = false;
 			});
-			$.map(numbers,function(key) {
+			
+			$.map(numbers,function(val,key) {
 				var node = methods['findNode'](key);
-				methods.replace.apply(node,[key]);
+				if (node)
+				    methods['replace'].apply(node,[key]);
 			});
 		},
 		search:function() {
@@ -41,12 +43,13 @@ This software is licensed under the CC-GNU LGPL <http://creativecommons.org/lice
 			return node;
 		},
 		isMobile:function() {
-			return /android.+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent||navigator.vendor||window.opera)
+			pattern =  /android.+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i
+			return pattern.test(navigator.userAgent||navigator.vendor||window.opera);
 			
 		}
 	}
-	$.fn.telephoneTags = function() {
-		if (!methods['isMobile']())
+	$.fn.telephoneTag = function() {
+	    if (!methods.isMobile())
 			return;
 		methods['init'].apply(this);
   	};
